@@ -24,7 +24,6 @@
 # 3.0: large part of script rewritten
 #      fix: works nicely with colors
 #      improved: highlight_regex and highlight_words work in a natural way
-#      todo: fix a weird perl warning when loading script for the first time
 #      removed: /colorize_lines
 #      removed: shuffle
 # 2.2: fix: regex with [tab] in message (patch by sqrrl)
