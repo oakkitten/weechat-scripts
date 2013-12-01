@@ -1,8 +1,9 @@
 #
 # Copyright (c) 2010-2013 by Nils Görs <weechatter@arcor.de>
+# Copyleft (ɔ) 2013 by oakkitten
 #
 # colors the channel text with nick color and also highlight the whole line
-# colorize_nicks.py script will be supported
+# colorize_nicks2.py script will be supported
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +21,13 @@
 # for settings see help page
 #
 # history:
-# 2.2; fix: regex with [tab] in message (patch by sqrrl)
+# 3.0: large part of script rewritten
+#      fix: works nicely with colors
+#      improved: highlight_regex and highlight_words work in a natural way
+#      todo: fix a weird perl warning when loading script for the first time
+#      removed: /colorize_lines
+#      removed: shuffle
+# 2.2: fix: regex with [tab] in message (patch by sqrrl)
 # 2.1: fix: changing highlight color did not apply messages already displayed (reported by rafi_)
 # 2.0: fix: debugging weechat::print() removed (thanks demure)
 # 1.9: fix: display bug with nick_mode
@@ -69,13 +76,13 @@
 #
 # requirements: sunglasses ;-)
 
-use Data::Dumper
-$Data::Dumper::Useqq=1;
+# use Data::Dumper
+# $Data::Dumper::Useqq=1;
 
 use strict;
 my $prgname	= "colorize_lines2";
-my $version	= "2.2";
-my $description	= "colors text in chat area with according nick color. Highlight messages will be fully highlighted in chat area";
+my $version	= "3.0";
+my $description	= "colors text in chat area with according nick color, including highlights";
 
 my %config = ("buffers"             => "all",       # all, channel, query
               "blacklist_buffers"   => "",          # "a,b,c"
