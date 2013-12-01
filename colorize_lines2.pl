@@ -142,7 +142,7 @@ sub colorize_cb {
         # it's our own line
         # process only if own_lines is "on" or "only" (i.e. not "off")
         return $string if ($config{own_lines} eq "off");
-        $string =~ m/(\31[^\31 ]+?)$nick/;
+        $string =~ m/(\31[^\31 ]+?)\Q$nick/;
         $color = $1;
     } else {
         # it's someone else's line
@@ -161,13 +161,13 @@ sub colorize_cb {
             return $string if ($config{highlight} eq "off" ||
                 ($config{highlight} eq "nicks" && !weechat::string_has_highlight("$servername.$nick", $config{nicks})));
             $color = weechat::color('chat_highlight');
-            $right =~ s/\31[^\31 ]+?$nick/$color$nick/ if ($action);
+            $right =~ s/\31[^\31 ]+?\Q$nick/$color$nick/ if ($action);
         } else {
             # that's not a highlight
             # process only if lines is "on" OR "nicks" & nick's in nicks
             return $string if ($config{lines} eq "off" ||
                 ($config{lines} eq "nicks" && !weechat::string_has_highlight("$servername.$nick", $config{nicks})));
-            $string =~ m/(\31[^\31 ]+?)$nick/;
+            $string =~ m/(\31[^\31 ]+?)\Q$nick/;
             $color = $1;
         }
     }
