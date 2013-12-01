@@ -142,8 +142,7 @@ sub colorize_cb {
         # it's our own line
         # process only if own_lines is "on" or "only" (i.e. not "off")
         return $string if ($config{own_lines} eq "off");
-        $string =~ m/(\31[^\31 ]+?)\Q$nick/;
-        $color = $1;
+        $color = weechat::color("chat_nick_self");
     } else {
         # it's someone else's line
         # don't process is own_lines are "only"
@@ -167,8 +166,7 @@ sub colorize_cb {
             # process only if lines is "on" OR "nicks" & nick's in nicks
             return $string if ($config{lines} eq "off" ||
                 ($config{lines} eq "nicks" && !weechat::string_has_highlight("$servername.$nick", $config{nicks})));
-            $string =~ m/(\31[^\31 ]+?)\Q$nick/;
-            $color = $1;
+            $color = weechat::info_get('irc_nick_color', $nick);
         }
     }
 
